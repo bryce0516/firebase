@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>12123624491-8fu4qq9qkq90e8htg7msp7avu2m98mth.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.12123624491-8fu4qq9qkq90e8htg7msp7avu2m98mth</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBkuWJHqW9BCoMXSKNW1zn5-g9Ru2aYJnY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>12123624491</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>org.reactjs.native.example.just</string>
+	<key>PROJECT_ID</key>
+	<string>net-ninja-marioplan-6d101</string>
+	<key>STORAGE_BUCKET</key>
+	<string>net-ninja-marioplan-6d101.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:12123624491:ios:2835ab861e601d48dac66e</string>
+	<key>DATABASE_URL</key>
+	<string>https://net-ninja-marioplan-6d101.firebaseio.com</string>
+</dict>
+</plist>
