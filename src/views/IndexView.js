@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, StyleSheet,Button } from 'react-native';
 
-import Main from './Main'
+import Main from './Database'
 import 'react-native-gesture-handler';
 import SignApple from './SignApple';
 import SignWithPhone from './SignWithPhone'

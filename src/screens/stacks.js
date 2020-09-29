@@ -8,8 +8,8 @@ import SignIn from '../views/SignIn'
 import SignUp from '../views/SignUp'
 import LoginFail from '../views/LoginFail'
 import HomeScreen from '../views/HomeScreen'
-import Main from '../views/Main'
-
+import Database from '../views/Database'
+import cloudFireStore from '../views/cloudFireStore'
 const Stack = createStackNavigator();
 
 export default class stacks extends Component {
@@ -19,10 +19,11 @@ export default class stacks extends Component {
           <Stack.Screen name="IndexView" component={IndexView} />
           <Stack.Screen name="tabs" component={tabs} />
           <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Main" component={Main} />
+          <Stack.Screen name="Database" component={Database} />
           <Stack.Screen name="LoginFail" component={LoginFail} />
           <Stack.Screen name="SignIn" component={SignIn} />
           <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="cloudFireStore" component={cloudFireStore} />
         </Stack.Navigator>
 
     )
