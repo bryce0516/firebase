@@ -109,7 +109,7 @@ export default class cloudFireStore extends Component {
         </View>
 
         <View style={{flex:0.1,flexDirection:'row', alignItems:'center'}}>
-          <View style={{flexDirection:'row',width:'20%'}}>
+          <View style={{flexDirection:'row',width:'30%'}}>
             <TouchableOpacity
               onPress={() => this.deleteUser()}
             >

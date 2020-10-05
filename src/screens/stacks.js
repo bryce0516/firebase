@@ -10,6 +10,9 @@ import LoginFail from '../views/LoginFail'
 import HomeScreen from '../views/HomeScreen'
 import Database from '../views/Database'
 import cloudFireStore from '../views/cloudFireStore'
+import Count from '../api/Count'
+import Sign from '../api/Sign'
+
 const Stack = createStackNavigator();
 
 export default class stacks extends Component {
@@ -24,6 +27,8 @@ export default class stacks extends Component {
           <Stack.Screen name="SignIn" component={SignIn} />
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="cloudFireStore" component={cloudFireStore} />
+          <Stack.Screen name="Count" component={Count} />
+          <Stack.Screen name="Sign" component={Sign} />
         </Stack.Navigator>
 
     )

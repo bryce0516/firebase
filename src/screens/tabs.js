@@ -10,7 +10,7 @@ export default class tabs extends Component {
   render() {
     return (
         <Tab.Navigator>
-          <Tab.Screen name="Stacks" component={Stacks} />
+          <Tab.Screen name="Sign" component={Stacks} />
           <Tab.Screen name="tab1" component={tab1} />
           <Tab.Screen name="tab2" component={tab2} />
         </Tab.Navigator>

@@ -28,7 +28,7 @@ export default class SignIn extends Component {
     .signInWithEmailAndPassword(this.state.email, this.state.password)
     .then(() => {
       alert('User account created & signed in!');
-      this.props.navigation.navigate('Home',{ screen: 'Home' })
+      this.props.navigation.navigate('Home',{ screen: 'Home',otherParam:auth() })
     })
     .catch(error => {
       if (error.code === 'auth/email-already-in-use') {

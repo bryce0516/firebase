@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import 'react-native-gesture-handler';
 import Drawers from './src/screens/drawers'
 import firebase from '@react-native-firebase/app'
-import Auth from '@react-native-firebase/auth'
-import Home from './src/Home'
-import Database from '@react-native-firebase/database'
+import {createStore} from 'redux'
+import {Provider} from 'react-redux'
+import reducers from './src/reducers'
 // const firebaseConfig = {
 //   apiKey: "AIzaSyABtKYGtN4W_nSdKRVF3KFk180Evtk8lMI",
 //   authDomain: "net-ninja-marioplan-6d101.firebaseapp.com",
@@ -30,8 +30,12 @@ class App extends Component {
   }
   render(){
     return (
-      <Drawers />
-      // <Home />
+      <Provider store={createStore(reducers)}>
+        {/* <Count /> */}
+        <Drawers />
+        {/* <Home /> */}
+      </Provider>
+
     )
   }
 }

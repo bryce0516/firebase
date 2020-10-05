@@ -11,15 +11,16 @@ export default class IndexView extends Component {
   constructor(props){
     super(props)
     this.state = {
-      isSignedIn :false
+      isSignedIn : undefined
     }
+    console.log('thisprops',this.props)
   }
   render() {
 
     return (
       <View style={{flex:1, flexDirection:'column', justifyContent:'center'}}>
       {
-        this.state.isSignedIn ? 
+        this.state.isSignedIn !== undefined ? 
       <HomeScreen />
       :
       <>
