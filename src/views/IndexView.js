@@ -7,14 +7,15 @@ import SignApple from './SignApple';
 import SignWithPhone from './SignWithPhone'
 import HomeScreen from './HomeScreen';
 import firebase from '@react-native-firebase/app'
+
 export default class IndexView extends Component {
   constructor(props){
     super(props)
     this.state = {
       isSignedIn : false
     }
-    console.log('indexView',this.state)
   }
+
   componentDidMount(){
     if(auth().currentUser){
       this.setState({
@@ -22,6 +23,7 @@ export default class IndexView extends Component {
       })
     }
   }
+  
   render() {
 
     return (

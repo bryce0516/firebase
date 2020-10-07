@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import drawer1 from '../drawers/drawer1'
 import drawer2 from '../drawers/drawer2'
 import tabs from './tabs'
-
+import store from '../redux/store'
 const Drawer = createDrawerNavigator();
 
 export default class drawers extends Component {

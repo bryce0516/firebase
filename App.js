@@ -2,11 +2,13 @@ import React, { Component, createContext,useReducer,useContext } from 'react';
 import 'react-native-gesture-handler';
 import Drawers from './src/screens/drawers'
 import firebase from '@react-native-firebase/app'
+import auth from '@react-native-firebase/auth'
 import {createStore, applyMiddleware} from 'redux'
 import {Provider, useSelector, useDispatch} from 'react-redux'
 import reducers from './src/reducers'
 import {View, Button, Text} from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
+import store from './src/redux/store'
 // const firebaseConfig = {
 //   apiKey: "AIzaSyABtKYGtN4W_nSdKRVF3KFk180Evtk8lMI",
 //   authDomain: "net-ninja-marioplan-6d101.firebaseapp.com",
@@ -84,12 +86,10 @@ class App extends Component {
     if (!firebase.apps.length) {
       firebase.initializeApp({});
     }
-
-
   }
   render(){
     return (
-      <Provider store={createStore(reducers)}>
+      <Provider store={store}>
         {/* <Count /> */}
         <Drawers />
         {/* <Home /> */} 

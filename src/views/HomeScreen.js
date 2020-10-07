@@ -9,7 +9,8 @@ import { connect,useDispatch,useSelector } from 'react-redux';
 import signReducer from '../reducers/signReducer';
 import React, { Component } from 'react'
 import isSign from '../actions/signAction'
-
+import store from '../redux/store'
+import ActionCreator from '../actions';
 
 class HomeScreen extends Component {
   constructor(props){
@@ -28,9 +29,9 @@ class HomeScreen extends Component {
     auth().onAuthStateChanged(user => {  
       if (user) { 
         this.setState({user: user});
+        this.props.isSign({type:'setUserName',uid:`${user.uid}`})
         if (this.state.initializing) {
           this.setState({initializing: false});
-          console.log('propsssss',this.state.user.creationTime)
           // AsyncStorage.setItem(JSON.stringify(this.state.user.creationTime), JSON.stringify(this.state.user.uid));
         }
         if (this.state.initializing) return null;
@@ -49,7 +50,7 @@ class HomeScreen extends Component {
         <Text>Welcome {this.state.user.email}</Text>
 
         <FirebaseList {...this.props.navigation} {...this.state.user} />
-
+        <Button title='check redux' onPress={() => console.log('thisis tabs store!!',store.getState())}/>
         <SignOut {...this.props.navigation} />
       </View>
     );
@@ -57,61 +58,24 @@ class HomeScreen extends Component {
 }
 
 
-// function HomeScreen({ navigation,isSign }) {
-
-//   const [initializing, setInitializing] = useState(true);
-//   const [user, setUser] = useState();
-
-  
-//   // Handle user state changes
-//   function onAuthStateChanged(user) {
-//     setUser(user);
-//     isSign.user = user.uid
-//     if (initializing) setInitializing(false);
-//   }
-
-//   useEffect(() => {
-//     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-//     return subscriber; // unsubscribe on unmount
-//   }, []);
-
-//   if (initializing) return null;
-
-//   if (!user) {
-//     return (
-//       <View style={{ flex:1, justifyContent: 'center', alignItems: 'center'}}>
-//         <IndexView {...user}/>
-//       </View>
-//     );
-//   }
-
-//   return (
-//     <View style={{ flex:1, justifyContent: 'center', alignItems: 'center'}}>
-//       <Text>Welcome {user.email}</Text>
-
-//       <FirebaseList {...navigation} {...user} />
-
-//       <SignOut {...navigation} />
-//     </View>
-//   );
-// }
-
-// function mapStateToProps(state,ownProps) {
-
-//   console.log('mapStateToProps',state)
-//   return {user:state.isSigned}
-// }
+function mapStateToProps(state) {
+  console.log('state',state)
+  return {
+    cart :state
+    // isLogged : state.isLogged
+  }
+}
 
 
-// function mapDispatchToProps(dispatch,ownProps){
-//  console.log('mapDispatchToProps',dispatch)
-//   return {
-//     isSign: () => {
-//       dispatch(ActionCreator.isSign())
-//     },
-//   }
-// }
+function mapDispatchToProps(dispatch,ownProps) {
 
 
+  return {
+    isSign: (param) => {
+      console.log('mapDispatchToProps props',param)
+      dispatch(ActionCreator.isSign(param))
+    },
+  }
+}
 
-export default HomeScreen
+export default connect(mapStateToProps,mapDispatchToProps)(HomeScreen)
