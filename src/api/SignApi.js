@@ -7,7 +7,7 @@ export const SignUpUser = (email, password) => {
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
         resolve('Sign up Successfuly')
-        this.props.navigation.navigate('Home',{ screen: 'Home' })
+        this.props.navigation.navigate('HomeScreen',{ screen: 'HomeScreen' })
       })
       .catch(error => {
         reject(error)

@@ -1,20 +1,17 @@
 import { login, LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from '../actions/signAction';
 
-
-
 const defaultState = {
   isLoggedIn: false,
   user: {}
 };
 
-const isSign = false;
 export default function signReducer(state= defaultState, action){
   switch (action.type) {
     case defaultState.user != null:
-      return defaultState
+      return defaultState.user + action.payload
     case defaultState.user == null:
-      return defaultState
+      return state.isLoggedIn
     default:
-      return defaultState
+      return state
   }
 };

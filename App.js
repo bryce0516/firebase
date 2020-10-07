@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, createContext,useReducer,useContext } from 'react';
 import 'react-native-gesture-handler';
 import Drawers from './src/screens/drawers'
 import firebase from '@react-native-firebase/app'
-import {createStore} from 'redux'
-import {Provider} from 'react-redux'
+import {createStore, applyMiddleware} from 'redux'
+import {Provider, useSelector, useDispatch} from 'react-redux'
 import reducers from './src/reducers'
+import {View, Button, Text} from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage';
 // const firebaseConfig = {
 //   apiKey: "AIzaSyABtKYGtN4W_nSdKRVF3KFk180Evtk8lMI",
 //   authDomain: "net-ninja-marioplan-6d101.firebaseapp.com",
@@ -18,6 +20,63 @@ import reducers from './src/reducers'
 // if(!firebase.apps.len gnth) {firebase.initializeApp(firebaseConfig) ;}
 
 // export {firebase, Auth}
+
+
+// const AppContext = createContext({});
+// const DispatchContext = createContext(()=>{});
+
+// export default function App(){
+//   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
+//   return (
+//       <Provider store={store}>
+//         <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
+//           <User />
+//           <Product />
+//           {/* <Drawers /> */}
+//         </View>
+//       </Provider>
+
+
+//   )
+// }
+
+// const INITIAL_STATE = {
+//   user:{name:'mike'},
+//   product:{name:'iphone'}
+// }
+
+// function reducer(state = INITIAL_STATE, action) {
+//   switch (action.type) {
+//     case 'setUserName':
+//       return {
+//         ...state,
+//         user: {...state.user, name:action.name},
+//       };
+//     default:
+//       return state
+//   }
+// }
+
+// const store = createStore(reducer);
+
+// function User() {
+//   console.log('user render')
+//   const user = useSelector(state => state.user)
+//   const dispatch = useDispatch();
+//   return (
+//     <>
+//       <Text>
+//         {`Hi,${user.name}`}
+//       </Text>
+//       <Button title="change username"  onPress={() => dispatch({ type:'setUserName', name:'john'})}/>
+//     </>
+//   )
+// }
+// function Product(){
+//   const product = useSelector(state => state.product)
+//   return <Text>{`product name is ${product.name}`}</Text>
+// }
+
 
 class App extends Component {
   constructor(props){
@@ -33,7 +92,7 @@ class App extends Component {
       <Provider store={createStore(reducers)}>
         {/* <Count /> */}
         <Drawers />
-        {/* <Home /> */}
+        {/* <Home /> */} 
       </Provider>
 
     )
@@ -41,3 +100,30 @@ class App extends Component {
 }
 
 export default App
+
+// const saveToLocalStorage = store => next => action => {
+//   if(action.meta?.localStorageKey) {
+//     AsyncStorage.setItem(action.meta?.localStorageKey, JSON.stringify(action));
+//   }
+//   return next(action)
+// }
+
+// const myReducer = (state = { name: 'mike'}, action) => {
+//   console.log('myreducer');
+//   if(action.type === 'someActin'){
+//     return {name: 'mike2',meta: { localStorageKey : 'myKey'}}
+//   }
+//   return state;
+// }
+// const store = createStore(myReducer, applyMiddleware(saveToLocalStorage));
+// store.subscribe(() =>{
+// const state = store.getState();
+// console.log(state)
+
+// })
+// store.dispatch({
+//   type:'someActin',
+//   title: 'asdf',
+//   meta: { localStorageKey : 'myKey'}
+
+// })

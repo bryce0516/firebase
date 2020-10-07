@@ -92,12 +92,12 @@ export default class SignApple extends Component {
         console.log("I'm a real person!");
       }
       console.log(`Apple Authentication Completed, ${this.user}, ${email}`);
-      this.props.navigation.navigate('Home',{ screen: 'Home' })
+      this.props.navigation.navigate('HomeScreen',{ screen: 'HomeScreen' })
     } catch (error) {
       if (error.code === AppleAuthError.CANCELED) {
         console.warn('User canceled Apple Sign in.');
         // this.props.navigation.navigate('LoginFail',{ screen: 'LoginFail' })
-        this.props.navigation.navigate('Home',{ screen: 'Home' })
+        this.props.navigation.navigate('HomeScreen',{ screen: 'HomeScreen' })
       } else {
         console.error(error);
         this.props.navigation.navigate('LoginFail',{ screen: 'LoginFail' })

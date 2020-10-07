@@ -50,7 +50,7 @@ export default class SignUp extends Component {
       })
       console.log(this.state, 'afasf', this.state.uid)
       alert(`User account created & signed in! email is ${this.state.email}`);
-      this.props.navigation.navigate('Home',{ screen: 'Home' })
+      this.props.navigation.navigate('HomeScreen',{ screen: 'HomeScreen' })
 
     })
     .catch(error => {

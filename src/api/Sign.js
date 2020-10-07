@@ -3,18 +3,18 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { connect } from 'react-redux'
 import ActionCreator from '../actions';
 
-// const uid = this.props.route.params.otherParam.uid
-
 class Sign extends Component {
 
   constructor(props, context) {
     super(props, context);
     this.state = {
-      isSigned: this.props.route.params.otherParam.uid
+      isSigned: false
     }
+
+
   }
   componentDidMount(){
-    if (this.state.isSigned != null) {
+    if (this.state.isSigned != true) {
       this.setState({
         isSigned: true
       })
@@ -22,6 +22,8 @@ class Sign extends Component {
   }
 
  render() {
+  let uid = this.props.route.params.otherParam.uid
+  console.log('props~~~', typeof uid)
     return (
       <View style={{flex:1,justifyContent:'center', alignItems:'center'}}>
         <Text>this.props.counter,{this.props.counter}</Text>
@@ -42,14 +44,23 @@ class Sign extends Component {
           onPress={() => this.props.navigation.goBack()}
         >
           <Text>goBack</Text>
+        </TouchableOpacity> 
+        <TouchableOpacity
+          style = {s.upButton}
+          onPress={() => this.props.isSign({type:'setUserName',uid:`${uid}`})}
+        >
+          <Text>isSign state</Text>
+
         </TouchableOpacity>
         <TouchableOpacity
           style = {s.upButton}
-          onPress={() => this.props.isSign()}
+          onPress={() => console.log(this.props.cart.cart.uid)}
         >
-          <Text>Change Sign status</Text>
+          <Text>console.log</Text>
+
         </TouchableOpacity>
-        {this.props.isSigned ? <Text>is signed</Text> : <Text>is not signed</Text>}
+        {this.state.isSigned ? <Text>is Signed</Text> :<Text>isn't Signed</Text>}
+
       </View>
     );
   }
@@ -60,13 +71,15 @@ function mapStateToProps(state) {
   return {
     counter: state.counter,
     count : state.count,
-    isSigned : state.isSigned
+    isSign : state.isSign,
+    cart :state
     // isLogged : state.isLogged
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  console.log(this.props)
+function mapDispatchToProps(dispatch,ownProps) {
+
+  const param = ownProps.route.params.otherParam.uid
   return {
     counterUp: (num) => {
       dispatch(ActionCreator.counterUp(num))
@@ -74,8 +87,9 @@ function mapDispatchToProps(dispatch) {
     counterDown: (num) => {
       dispatch(ActionCreator.counterDown(num))
     },
-    isSign: () => {
-      dispatch(ActionCreator.isSign())
+    isSign: (param) => {
+      console.log('mapDispatchToProps props',param)
+      dispatch(ActionCreator.isSign(param))
     },
     notSign: () => {
       dispatch(ActionCreator.notSign())
@@ -106,4 +120,67 @@ const s = StyleSheet.create({
 })
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Sign);
+export default connect(mapStateToProps, mapDispatchToProps)(Sign)
+
+
+// const AppContext = createContext({});
+// const DispatchContext = createContext(()=>{});
+
+// export default function App(){
+//   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
+//   return (
+//       <Provider store={store}>
+//         <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
+//           <User />
+//           <Product />
+//           {/* <Drawers /> */}
+//         </View>
+//       </Provider>
+
+
+//   )
+// }
+
+// const INITIAL_STATE = {
+//   user:{name:'mike'},
+//   product:{name:'iphone'}
+// }
+
+// function User() {
+//   console.log('user render')
+//   const user = useSelector(state => state.user)
+//   const dispatch = useDispatch();
+//   return (
+//     <>
+//       <Text>
+//         {`Hi,${user.name}`}
+//       </Text>
+//       <Button title="change username"  onPress={() => dispatch({ type:'setUserName', name:'john'})}/>
+//     </>
+//   )
+// }
+// function Product(){
+//   const product = useSelector(state => state.product)
+//   return <Text>{`product name is ${product.name}`}</Text>
+// }
+
+
+
+
+
+// const myReducer = (state = { name: 'mike'}, action) => {
+//   console.log('myreducer');
+//   if(action.type === 'someActin'){
+//     return {name: 'mike2',meta: { localStorageKey : 'myKey'}}
+//   }
+//   return state;
+// }
+
+// const store = createStore(myReducer, applyMiddleware(saveToLocalStorage));
+
+// store.dispatch({
+//   type:'someActin',
+//   title: 'asdf',
+//   meta: { localStorageKey : 'myKey'}
+
+// })

@@ -5,6 +5,7 @@ import auth from '@react-native-firebase/auth';
 export default class SignOut extends Component {
   constructor(props){
     super(props)
+
   }
   
   signOut(props){

@@ -2,12 +2,12 @@ import {combineReducers} from 'redux'
 import CountReducer from './countReducer'
 import counterReducer from './counterReducer'
 import signReducer from './signReducer'
+import cartReducer from './cartReducer'
 
 const allReducers = combineReducers({
   count: CountReducer,
   counter: counterReducer,
-  isSigned: signReducer
-
+  cart : cartReducer
 })
 
 export default allReducers

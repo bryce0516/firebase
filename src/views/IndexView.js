@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, StyleSheet,Button } from 'react-native';
-
+import auth from '@react-native-firebase/auth';
 import Main from './Database'
 import 'react-native-gesture-handler';
 import SignApple from './SignApple';
@@ -11,16 +11,23 @@ export default class IndexView extends Component {
   constructor(props){
     super(props)
     this.state = {
-      isSignedIn : undefined
+      isSignedIn : false
     }
-    console.log('thisprops',this.props)
+    console.log('indexView',this.state)
+  }
+  componentDidMount(){
+    if(auth().currentUser){
+      this.setState({
+        isSignedIn: true
+      })
+    }
   }
   render() {
 
     return (
       <View style={{flex:1, flexDirection:'column', justifyContent:'center'}}>
       {
-        this.state.isSignedIn !== undefined ? 
+        this.state.isSignedIn != false ? 
       <HomeScreen />
       :
       <>

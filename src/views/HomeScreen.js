@@ -1,5 +1,5 @@
 
-import {View, Text, Button, TouchableOpacity, LogBox} from 'react-native'
+import {View, Text, Button, TouchableOpacity,AsyncStorage} from 'react-native'
 import auth from '@react-native-firebase/auth';
 import SignOut from './SignOut'
 import PropTypes from 'prop-types';
@@ -12,15 +12,12 @@ import isSign from '../actions/signAction'
 
 
 class HomeScreen extends Component {
-
-  
   constructor(props){
     super(props)
     this.state = {
       initializing:true,
       user: {}
     }
-    console.log('info',user)
   }
 
   componentDidMount(){
@@ -33,7 +30,8 @@ class HomeScreen extends Component {
         this.setState({user: user});
         if (this.state.initializing) {
           this.setState({initializing: false});
-          console.log('propsssss',this.state.user.uid)
+          console.log('propsssss',this.state.user.creationTime)
+          // AsyncStorage.setItem(JSON.stringify(this.state.user.creationTime), JSON.stringify(this.state.user.uid));
         }
         if (this.state.initializing) return null;
       } else {   
@@ -98,22 +96,22 @@ class HomeScreen extends Component {
 //   );
 // }
 
-function mapStateToProps(state,ownProps) {
+// function mapStateToProps(state,ownProps) {
 
-  console.log('mapStateToProps',state)
-  return {user:state.isSigned}
-}
-
-
-function mapDispatchToProps(dispatch,ownProps){
- console.log('mapDispatchToProps',dispatch)
-  return {
-    isSign: () => {
-      dispatch(ActionCreator.isSign())
-    },
-  }
-}
+//   console.log('mapStateToProps',state)
+//   return {user:state.isSigned}
+// }
 
 
+// function mapDispatchToProps(dispatch,ownProps){
+//  console.log('mapDispatchToProps',dispatch)
+//   return {
+//     isSign: () => {
+//       dispatch(ActionCreator.isSign())
+//     },
+//   }
+// }
 
-export default connect(mapStateToProps,mapDispatchToProps)(HomeScreen)
+
+
+export default HomeScreen

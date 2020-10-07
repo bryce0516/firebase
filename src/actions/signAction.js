@@ -1,21 +1,16 @@
-const types = {
-  isSign: 'isSign',
-  notSign: 'notSign'
-}
+export const LOGIN = 'LOGIN'
+export const LOGIN_REQUEST = 'LOGIN_REQUEST'
+export const LOGIN_SUCESS = 'LOGIN_SUCESS'
+export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 const defaultState = {
   isLoggedIn: false,
   user: {}
 };
 
-export const LOGIN = 'LOGIN'
-export const LOGIN_REQUEST = 'LOGIN_REQUEST'
-export const LOGIN_SUCESS = 'LOGIN_SUCESS'
-export const LOGIN_FAILURE = 'LOGIN_FAILURE'
-
-export function isSign(user){
+export function isSign(param){
   return {
-    type: LOGIN,
-
+    type: defaultState.isLoggedIn,
+    payload: param
   }
 } 
 

@@ -4,7 +4,7 @@ import { TapGestureHandler } from 'react-native-gesture-handler'
 export default class FirebaseList extends Component {
   constructor(props){
     super(props)
-
+    console.log('firebaselist, ', this.props)
   }
 
   render() {
@@ -37,6 +37,13 @@ export default class FirebaseList extends Component {
         >
           <Text style={{fontSize:20, color:'#586fb0'}}>
             Go to Sign
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{padding:2}}
+          onPress={() => this.props.navigate('Container',{ screen: 'Container' })}
+        >
+          <Text style={{fontSize:20, color:'#586fb0'}}>
+            Go to redux
           </Text>
         </TouchableOpacity>
       </View>
