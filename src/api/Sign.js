@@ -23,7 +23,6 @@ class Sign extends Component {
 
  render() {
   let uid = this.props.route.params.otherParam.uid
-  console.log('props~~~', typeof uid)
     return (
       <View style={{flex:1,justifyContent:'center', alignItems:'center'}}>
         <Text>this.props.counter,{this.props.counter}</Text>
@@ -67,7 +66,6 @@ class Sign extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log('state',state)
   return {
     counter: state.counter,
     count : state.count,

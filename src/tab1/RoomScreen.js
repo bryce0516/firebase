@@ -58,13 +58,7 @@ export default function RoomScreen() {
       </Send>
     );
   }
-  function scrollToBottomComponent() {
-    return (
-      <View style={styles.bottomComponentContainer}>
-        <IconButton icon='chevron-double-down' size={36} color='#6646ee' />
-      </View>
-    );
-  }
+
   function renderLoading() {
     return (
       <View style={styles.loadingContainer}>
@@ -82,7 +76,7 @@ export default function RoomScreen() {
       showUserAvatar
       alwaysShowSend
       renderSend={renderSend}
-      scrollToBottomComponent={scrollToBottomComponent}
+      scrollToBottom
       renderLoading={renderLoading}
     />
   );
@@ -93,10 +87,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  bottomComponentContainer: {
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
+
   loadingContainer: {
     flex: 1,
     alignItems: 'center',
