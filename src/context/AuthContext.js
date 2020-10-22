@@ -8,6 +8,8 @@ const authReducer = (state, action) => {
       return {errorMessage:'', token: action.payload}
     case 'signup':
       return {errorMessage:'', token: action.payload}
+    case 'signout':
+      return {errorMessage:'', token: null}
     default:
       return state;
   }
@@ -17,9 +19,11 @@ const signin = dispatch => {
   return async({email, password}) => {
     await auth()
     .signInWithEmailAndPassword(email, password)
-    .then(() => {
+    .then((data) => {
       alert('User account created & signed in!');
-      // navigate('HomeScreen',{ screen: 'HomeScreen' })
+      AsyncStorage.setItem('token', data.user.uid)
+      dispatch({type:'signin', payload:data.user.uid})
+      navigate('main',{ screen: 'homeScreen' })
     })
     .catch(error => {
       if (error.code === 'auth/email-already-in-use') {
@@ -46,8 +50,9 @@ const signup = dispatch => {
           lastSignInTime: data.user.metadata.lastSignInTime
         }
         console.log(userInfo)
+        dispatch({type:'signup', payload:data.user.uid})
         alert(`User account created & signed in! email is ${email}`);
-        // navigate('HomeScreen',{ screen: 'HomeScreen' })
+        navigate('SignIn')
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
@@ -62,10 +67,53 @@ const signup = dispatch => {
   }
 }
 
+const signout = dispatch => {
+  return async () => {
+    await AsyncStorage.removeItem('token');
+    dispatch({type:'signout'})
+    navigate('login',{ screen:'index'})
+  }
+}
 
+const autosignin = dispatch => async () => {
+  const token = await AsyncStorage.getItem('token')
+  try{
+    if(token){
+      dispatch ({type:'signin', payload: token})
+      navigate('main',{ screen: 'homeScreen' })
+    } else {
+      navigate('login',{ screen:'index'})
+    }
+  }catch(error){
+    console.log(error)
+  }
+}
+
+const applesign = dispatch => async () => {
+  try {
+    const appleAuthRequestResponse = await appleAuth.performRequest({
+      requestedOperation: appleAuth.Operation.LOGIN,
+      requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME]
+    })
+  
+    const {identityToken, nonce } = appleAuthRequestResponse;
+  
+    if(identityToken) {
+      const appleCredential = firebase.auth.AppleAuthProvider.credential(identityToken, nonce);
+  
+      const userCredetital = await firebase.auth().signInWithCredential(appleCredential).then(AsyncStorage.setItem('token',userCredential.user.uid))
+      console.log(`Firebase authenticated via Apple, UID: ${userCredential.user.uid}`);
+    } else {
+      
+    }
+  }catch (error){
+    console.log(error)
+  }
+
+}
 
 export const {Provider, Context} = createDataContext(
   authReducer,
-  { signin, signup },
+  { signin, signup,signout, autosignin, applesign },
   { token:null, errorMessage:'' }
 )

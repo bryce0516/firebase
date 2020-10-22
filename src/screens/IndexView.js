@@ -51,12 +51,15 @@
 // }
 
 
-import React from 'react'
+import React, {useContext, useEffect} from 'react'
 import { View, Text, Button } from 'react-native'
 import {navigate} from '../RootNavigation'
+import {Context as AuthContext} from '../context/AuthContext'
 const IndexView = ({navigation}) => {
-console.log
-
+  const { autosignin } = useContext(AuthContext)
+  useEffect(() => {
+    autosignin();
+  }, [])
   return (
     <View style={{flex:1, flexDirection:'column', justifyContent:'center'}}>
       <View style={{alignItems:'center',paddingVertical:20}}>

@@ -82,10 +82,22 @@
 
 
 
-import React from 'react'
-import { View, Text } from 'react-native'
-
-const HomeScreen = () => {
+import React, {useContext} from 'react'
+import { View, Text, Button } from 'react-native'
+import { navigate } from '../RootNavigation'
+import {Context as AuthContext} from '../context/AuthContext'
+import AsyncStorage from '@react-native-community/async-storage'
+const HomeScreen = ({navigation}) => {
+  const { signout } = useContext(AuthContext)
+  console.log(AsyncStorage.getItem('token'))
+  React.useLayoutEffect(() => {
+    navigation.setOptions(
+      {
+        headerRight: () => (
+          <Button title="Sign out" onPress={signout} />
+      )
+    })
+  },[navigation])
   return (
     <View>
       <Text>HomeScreen</Text>

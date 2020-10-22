@@ -17,6 +17,7 @@ import store from './src/redux/store'
 import React, { Component, createContext,useReducer,useContext } from 'react';
 import { NavigationContainer} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import {View, Button, Text} from 'react-native'
 import { withNavigation, createSwitchNavigator, createCompatNavigatorFactory } from '@react-navigation/compat';
 import HomeScreen from './src/screens/HomeScreen';
@@ -25,6 +26,8 @@ import SignIn from './src/views/SignIn'
 import SignUp from './src/views/SignUp'
 import {Provider as AuthProvider} from './src/context/AuthContext'
 import {navigationRef} from './src/RootNavigation'
+import JomeScreen from './src/tab1/JomeScreen';
+import RoomScreen from './src/tab1/RoomScreen';
 // const firebaseConfig = {
 //   apiKey: "AIzaSyABtKYGtN4W_nSdKRVF3KFk180Evtk8lMI",
 //   authDomain: "net-ninja-marioplan-6d101.firebaseapp.com",
@@ -101,13 +104,25 @@ const loginFlow = createCompatNavigatorFactory(createStackNavigator)(
     SignUp: {screen: SignUp},
   }
 )
-
-const mainFlow = createCompatNavigatorFactory(createStackNavigator)(
+const chatFlow = createCompatNavigatorFactory(createStackNavigator)(
   {
-    home: {screen: HomeScreen}
+    jome:{screen: JomeScreen},
+    room:{screen: RoomScreen}
   }
-
 )
+const homeFlow = createCompatNavigatorFactory(createStackNavigator)(
+  {
+    homeScreen:{screen: HomeScreen}
+  }
+)
+const mainFlow = createCompatNavigatorFactory(createBottomTabNavigator)(
+  {
+    home: homeFlow,
+    chat: chatFlow,
+
+  }
+)
+
 const App = createSwitchNavigator(
   {
     login: loginFlow,
