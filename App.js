@@ -1,4 +1,4 @@
-import React, { Component, createContext,useReducer,useContext } from 'react';
+
 import 'react-native-gesture-handler';
 import Drawers from './src/screens/drawers'
 import firebase from '@react-native-firebase/app'
@@ -6,9 +6,25 @@ import auth from '@react-native-firebase/auth'
 import {createStore, applyMiddleware} from 'redux'
 import {Provider, useSelector, useDispatch} from 'react-redux'
 import reducers from './src/reducers'
-import {View, Button, Text} from 'react-native'
+
 import AsyncStorage from '@react-native-community/async-storage';
 import store from './src/redux/store'
+
+
+
+
+
+import React, { Component, createContext,useReducer,useContext } from 'react';
+import { NavigationContainer} from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import {View, Button, Text} from 'react-native'
+import { withNavigation, createSwitchNavigator, createCompatNavigatorFactory } from '@react-navigation/compat';
+import HomeScreen from './src/screens/HomeScreen';
+import IndexView from  './src/screens/IndexView'
+import SignIn from './src/views/SignIn'
+import SignUp from './src/views/SignUp'
+import {Provider as AuthProvider} from './src/context/AuthContext'
+import {navigationRef} from './src/RootNavigation'
 // const firebaseConfig = {
 //   apiKey: "AIzaSyABtKYGtN4W_nSdKRVF3KFk180Evtk8lMI",
 //   authDomain: "net-ninja-marioplan-6d101.firebaseapp.com",
@@ -78,28 +94,65 @@ import store from './src/redux/store'
 //   const product = useSelector(state => state.product)
 //   return <Text>{`product name is ${product.name}`}</Text>
 // }
-
-
-class App extends Component {
-  constructor(props){
-    super(props)
-    if (!firebase.apps.length) {
-      firebase.initializeApp({});
-    }
+const loginFlow = createCompatNavigatorFactory(createStackNavigator)(
+  {
+    index: {screen: IndexView },
+    SignIn: {screen: SignIn},
+    SignUp: {screen: SignUp},
   }
-  render(){
-    return (
-      <Provider store={store}>
-        {/* <Count /> */}
-        <Drawers />
-        {/* <Home /> */} 
-      </Provider>
+)
 
-    )
+const mainFlow = createCompatNavigatorFactory(createStackNavigator)(
+  {
+    home: {screen: HomeScreen}
   }
+
+)
+const App = createSwitchNavigator(
+  {
+    login: loginFlow,
+    main: mainFlow
+  }
+)
+
+
+export default () => {
+  return (
+    <AuthProvider>
+      <NavigationContainer ref={navigationRef}>
+        <App />
+      </NavigationContainer>
+    </AuthProvider>
+
+  )
 }
 
-export default App
+//before
+// class App extends Component {
+//   constructor(props){
+//     super(props)
+//     if (!firebase.apps.length) {
+//       firebase.initializeApp({});
+//     }
+//   }
+//   render(){
+//     return (
+//       <Provider store={store}>
+//         {/* <Count /> */}
+//         <Drawers />
+//         {/* <Home /> */} 
+//       </Provider>
+
+//     )
+//   }
+// }
+
+// export default App
+
+
+
+
+
 
 // const saveToLocalStorage = store => next => action => {
 //   if(action.meta?.localStorageKey) {
