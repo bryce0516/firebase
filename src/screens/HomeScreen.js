@@ -89,7 +89,6 @@ import {Context as AuthContext} from '../context/AuthContext'
 import AsyncStorage from '@react-native-community/async-storage'
 const HomeScreen = ({navigation}) => {
   const { signout } = useContext(AuthContext)
-  console.log(AsyncStorage.getItem('token'))
   React.useLayoutEffect(() => {
     navigation.setOptions(
       {

@@ -6,7 +6,6 @@ import ActionCreator from '../actions';
 class Count extends Component {
   constructor(props, context) {
     super(props, context);
-    console.log(this.props)
   }
 
  render() {

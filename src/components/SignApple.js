@@ -150,24 +150,20 @@ import { appleAuth, AppleButton } from '@invertase/react-native-apple-authentica
 import AsyncStorage from '@react-native-community/async-storage';
 import { Context as AuthContext } from '../context/AuthContext'
 
-const SignApple = async () => {
+const SignApple = () => {
   const { applesign } = useContext(AuthContext)
-  const appleAuthRequestResponse = await appleAuth.performRequest({
-    requestedOperation: appleAuth.Operation.LOGIN,
-    requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME]
-  })
 
-  const {identityToken, nonce } = appleAuthRequestResponse;
-
-  if(identityToken) {
-    const appleCredential = firebase.auth.AppleAuthProvider.credential(identityToken, nonce);
-
-    const userCredetital = await firebase.auth().signInWithCredential(appleCredential).then(AsyncStorage.setItem('token',userCredential.user.uid))
-    console.log(`Firebase authenticated via Apple, UID: ${userCredential.user.uid}`);
-  } else {
-    
-  }
-  
+  return (
+    <View>
+      <AppleButton 
+        style={{width:200, height:60}}
+        cornerRadius={5}
+        buttonStyle={AppleButton.Style.WHITE}
+        buttonType={AppleButton.Type.SIGN_IN}
+        onPress={applesign}
+      />
+    </View>
+  )
 }
 
 export default SignApple

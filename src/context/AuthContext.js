@@ -1,7 +1,8 @@
 import AsyncStorage from '@react-native-community/async-storage'
 import createDataContext from './createDataContext'
-import auth from '@react-native-firebase/auth';
+import auth, {firebase}  from '@react-native-firebase/auth';
 import {navigate} from '../RootNavigation'
+import appleAuth, {AppleAuthRequestOperation, AppleAuthRequestScope,AppleAuthCredentialState}  from '@invertase/react-native-apple-authentication';
 const authReducer = (state, action) => {
   switch(action.type){
     case 'signin':
@@ -49,7 +50,6 @@ const signup = dispatch => {
           creationTime: data.user.metadata.creationTime,
           lastSignInTime: data.user.metadata.lastSignInTime
         }
-        console.log(userInfo)
         dispatch({type:'signup', payload:data.user.uid})
         alert(`User account created & signed in! email is ${email}`);
         navigate('SignIn')
@@ -92,21 +92,25 @@ const autosignin = dispatch => async () => {
 const applesign = dispatch => async () => {
   try {
     const appleAuthRequestResponse = await appleAuth.performRequest({
-      requestedOperation: appleAuth.Operation.LOGIN,
-      requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME]
+      requestedOperation: AppleAuthRequestOperation.LOGIN,
+      requestedScopes: [AppleAuthRequestScope.EMAIL, AppleAuthRequestScope.FULL_NAME]
     })
   
     const {identityToken, nonce } = appleAuthRequestResponse;
   
     if(identityToken) {
       const appleCredential = firebase.auth.AppleAuthProvider.credential(identityToken, nonce);
-  
-      const userCredetital = await firebase.auth().signInWithCredential(appleCredential).then(AsyncStorage.setItem('token',userCredential.user.uid))
-      console.log(`Firebase authenticated via Apple, UID: ${userCredential.user.uid}`);
-    } else {
       
+      const userCredetital = await firebase.auth().signInWithCredential(appleCredential)
+      AsyncStorage.setItem('token', userCredetital.user.uid)
+      dispatch({ type:'signin',payload:userCredetital.user.uid })
+      navigate('main',{ screen: 'homeScreen' })
+    } else {
+      alert('Something happen Wrong please check your password or account settings')
+      navigate('login',{ screen:'index'})
     }
   }catch (error){
+    alert('Something happen Wrong please check your password or account settings')
     console.log(error)
   }
 

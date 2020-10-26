@@ -25,9 +25,11 @@ import IndexView from  './src/screens/IndexView'
 import SignIn from './src/views/SignIn'
 import SignUp from './src/views/SignUp'
 import {Provider as AuthProvider} from './src/context/AuthContext'
+import {Provider as ChatProvider} from './src/context/ChatContext'
 import {navigationRef} from './src/RootNavigation'
 import JomeScreen from './src/tab1/JomeScreen';
 import RoomScreen from './src/tab1/RoomScreen';
+import AddRoomScreen from './src/tab1/AddRoomScreen';
 // const firebaseConfig = {
 //   apiKey: "AIzaSyABtKYGtN4W_nSdKRVF3KFk180Evtk8lMI",
 //   authDomain: "net-ninja-marioplan-6d101.firebaseapp.com",
@@ -107,7 +109,8 @@ const loginFlow = createCompatNavigatorFactory(createStackNavigator)(
 const chatFlow = createCompatNavigatorFactory(createStackNavigator)(
   {
     jome:{screen: JomeScreen},
-    room:{screen: RoomScreen}
+    room:{screen: RoomScreen},
+    addroom: {screen: AddRoomScreen}
   }
 )
 const homeFlow = createCompatNavigatorFactory(createStackNavigator)(
@@ -133,12 +136,13 @@ const App = createSwitchNavigator(
 
 export default () => {
   return (
-    <AuthProvider>
-      <NavigationContainer ref={navigationRef}>
-        <App />
-      </NavigationContainer>
-    </AuthProvider>
-
+    <ChatProvider>
+      <AuthProvider>
+        <NavigationContainer ref={navigationRef}>
+          <App />
+        </NavigationContainer>
+      </AuthProvider>
+    </ChatProvider>
   )
 }
 

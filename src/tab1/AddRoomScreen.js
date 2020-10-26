@@ -15,7 +15,8 @@ export default function AddRoomScreen({navigation}) {
           name:roomName
         })
         .then(() => {
-          navigation.navigate('Home')
+          
+          navigation.navigate('jome')
         }).catch(error => {
           alert('YOU DID NOT SIGN IN THIS APPLICATION')
           navigation.navigate('IndexView')
